@@ -1,5 +1,8 @@
-module github.com/octavio-luna/api_campo
+module github.com/octavio-luna/bookstore
 
 go 1.17
 
-require github.com/go-sql-driver/mysql v1.6.0
+require (
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/gorilla/mux v1.8.0
+)

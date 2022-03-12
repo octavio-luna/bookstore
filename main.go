@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/octavio-luna/bookstore/datasources"
+	"github.com/octavio-luna/bookstore/app"
 )
 
 func main() {
-	db, err := datasources.ConnectDB()
+	app.StartApplication()
 }

@@ -1,30 +1,28 @@
 package datasources
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
-	"os"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func ConnectDB() (*sql.DB, error) {
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USERNAME")
-	password := os.Getenv("DB_PASSWORD")
-	name := os.Getenv("DB_NAME")
+var DB *sql.DB
 
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(localhost:%s)/%s", user, password, port, name))
+func ConnectDB() {
+	ctx := context.Background()
+
+	var err error
+	DB, err = sql.Open("mysql", "root:12345@tcp(127.0.0.1:3306)/bookstore")
 	if err != nil {
-		return nil, err
+		log.Fatal("Error creating connection pool: ", err.Error())
 	}
 
-	err = db.Ping()
+	err = DB.PingContext(ctx)
 	if err != nil {
-		return nil, err
+		log.Fatal(err.Error())
 	}
-
-	return db, nil
+	fmt.Println("Connected!")
 }
-
-
